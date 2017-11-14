@@ -5,7 +5,7 @@ A Discord bot that assits members on the Exsilium Server
 ## Add the live version to your server
 
 ```
-TBD
+https://discordapp.com/oauth2/authorize?&client_id=354025589851815950&scope=bot&permissions=0
 ```
 
 ## Getting Started
@@ -32,6 +32,13 @@ Run the following command after installation
 ```
 npm install --save discord.js
 ```
+
+### Configuring the config files
+
+Configure config-example.json with your bot token and prefix
+Rename config-example.json to config.json.
+
+### Running the Bot
 
 Then run the following from the source files directory
 ```
