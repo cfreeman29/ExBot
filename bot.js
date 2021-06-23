@@ -53,7 +53,7 @@ client.on("message", (message) => {
 //
 
 //Summon to Channel///
-client.on('message', message => {
+client.on('message', async message => {
   if (message.content.startsWith(config.prefix + "summon")) {
     const connection = await message.member.voice.channel.join();
   }
