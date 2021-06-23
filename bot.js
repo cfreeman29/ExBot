@@ -1,7 +1,7 @@
 const Discord = require("discord.js");
 const client = new Discord.Client();
 const config = require("./config.json");
-const music = require('discord.js-music-v11');
+const music = require('discord-music-system');
 var giphy = require('giphy-api')();
 
 function coinFlip() {
@@ -20,15 +20,6 @@ client.on("message", (message) => {
     message.channel.send("pong");
   }
 });
-
-/*client.on("message", (message) => {
-  if (message.content.startsWith(config.prefix + "play")) {
-    const args = message.content.slice(config.prefix).trim().split(/ +/g);
-    const command = args.shift().toLowerCase();
-    let song = args[1]
-    play(song)
-  }
-});*/
 
 client.on('message', message => {
   if (message.content.startsWith(config.prefix + "summon")) {
@@ -141,6 +132,12 @@ client.on("message", (message) => {
   if (message.content.startsWith(config.prefix + "help")) {
     message.channel.send("Available Commands:\n !ping : sends a pong response when online.\n !coinflip : flips a coin and returns heads or tails.\n !rps (rock,paper,sissors) : Plays a game!\n !decide (option,option) : Let Exbot decide on what to choose!\n !summon,!play,!dismiss : Summon Exbot to voice, play a song, then leave.\n");
   }
+});
+
+client.musicBot = new MusicBot(client, {
+  ytApiKey: 'AIzaSyB31YdrV7RYWCFLlblwiSDSfUgkl6H2tDY',
+  prefix: '!', // Your bot prefix
+  language: 'en' // fr, en, es, pt
 });
 
 music(client);
