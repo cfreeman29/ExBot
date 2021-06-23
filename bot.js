@@ -51,13 +51,41 @@ new Player(client, {
 // You can define the Player as *client.player* to easly access it.
 client.player = player;
 
-client.on("message", (message) => {
-  if (message.content.startsWith(config.prefix + "play")) {
-    const args = message.content.slice(config.prefix).trim().split(/ +/g);
+client.player.on('songAdd',  (message, queue, song) =>
+    message.channel.send(`**${song.name}** has been added to the queue!`))
+    .on('songFirst',  (message, song) =>
+        message.channel.send(`**${song.name}** is now playing!`));
+
+client.on('message', async (message) => {
+    const args = message.content.slice(settings.prefix.length).trim().split(/ +/g);
     const command = args.shift().toLowerCase();
-    let song = args[1]
-    client.player.play(song)
-  }
+
+    // !play This is the Life
+    // will play "This is the Life" in the Voice Channel
+    // !play https://open.spotify.com/track/5rX6C5QVvvZB7XckETNych?si=WlrC_VZVRlOhuv55V357AQ
+    // will play "All Summer Long" in the Voice Channel
+
+    if(command === 'play'){
+        let song = await client.player.play(message, args.join(' '));
+        
+        // If there were no errors the Player#songAdd event will fire and the song will not be null.
+        if(song)
+            console.log(`Started playing ${song.name}`);
+        return;
+    }
+    
+    // OR with the Options Object
+    if(command === 'play'){
+        let song = await client.player.play(message, {
+            search: args.join(' '),
+            requestedBy: message.author.tag
+        });
+
+        // If there were no errors the Player#songAdd event will fire and the song will not be null.
+        if(song)
+            console.log(`Started playing ${song.name}`);
+        return;
+    }
 });
 //
 
