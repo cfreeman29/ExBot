@@ -55,11 +55,7 @@ client.on("message", (message) => {
 //Summon to Channel///
 client.on('message', message => {
   if (message.content.startsWith(config.prefix + "summon")) {
-    const voiceChannel = message.member.voiceChannel;
-
-    voiceChannel.join()
-    .then(connection => console.log('Connected!'))
-    .catch(console.error);
+    const connection = await message.member.voice.channel.join();
   }
 });
 //
