@@ -40,7 +40,7 @@ client.on("message", (message) => {
 //
 
 //Music//
-new Player(client, {
+const player = new Player(client, {
   leaveOnEnd: false,
   leaveOnStop: false,
   leaveOnEmpty: true,
