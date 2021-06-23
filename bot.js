@@ -2,7 +2,6 @@ const Discord = require("discord.js");
 const client = new Discord.Client();
 const config = require("./config.json");
 var giphy = require('giphy-api')();
-const { Player } = require("discord-music-player");
 
 //CoinFlip
 function coinFlip() {
@@ -24,7 +23,7 @@ client.on("message", (message) => {
 client.on("message", (message) => {
   if (message.content.startsWith(config.prefix + "decide")) {
     const args = message.content.slice(config.prefix).trim().split(/ +/g);
-    const command = args.shift().toLowerCase();~
+    const command = args.shift().toLowerCase();
     let first = args[0]
     let second = args[2]
     desc = randomIntInc(1,2)
@@ -38,49 +37,6 @@ client.on("message", (message) => {
   }
 });
 //
-
-//Music//
-const player = new Player(client, {
-  leaveOnEnd: false,
-  leaveOnStop: false,
-  leaveOnEmpty: true,
-  timeout: 0,
-  volume: 150,
-  quality: 'high',
-});
-// You can define the Player as *client.player* to easly access it.
-client.player = player;
-
-client.player.on('songAdd',  (message, queue, song) =>
-    message.channel.send(`**${song.name}** has been added to the queue!`))
-    .on('songFirst',  (message, song) =>
-        message.channel.send(`**${song.name}** is now playing!`));
-
-client.on('message', async (message) => {
-    const args = message.content.slice(settings.prefix.length).trim().split(/ +/g);
-    const command = args.shift().toLowerCase();
-
-    // !play This is the Life
-    // will play "This is the Life" in the Voice Channel
-    // !play https://open.spotify.com/track/5rX6C5QVvvZB7XckETNych?si=WlrC_VZVRlOhuv55V357AQ
-    // will play "All Summer Long" in the Voice Channel
-
-    if(command === 'play'){
-        let song = await client.player.play(message, args.join(' '));
-        
-        // If there were no errors the Player#songAdd event will fire and the song will not be null.
-        if(song)
-            console.log(`Started playing ${song.name}`);
-        return;
-    }
-           // If there were no errors the Player#songAdd event will fire and the song will not be null.
-        if(song)
-            console.log(`Started playing ${song.name}`);
-        return;
-    }
-});
-//
-
 
 //Ready Up
 client.on('ready', () => {
