@@ -134,10 +134,4 @@ client.on("message", (message) => {
   }
 });
 
-client.music = new music(client, {
-  ytApiKey: 'AIzaSyB31YdrV7RYWCFLlblwiSDSfUgkl6H2tDY',
-  prefix: '!', // Your bot prefix
-  language: 'en' // fr, en, es, pt
-});
-
 client.login(config.token);
