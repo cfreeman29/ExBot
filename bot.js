@@ -63,8 +63,7 @@ client.on('message', async message => {
 //Dimiss From Channel//
 client.on('message', message => {
   if (message.content.startsWith(config.prefix + "dismiss")) {
-    const voiceChannel = message.member.voiceChannel;
-    voiceChannel.leave()
+    connection.disconnect();
   }
 });
 //
