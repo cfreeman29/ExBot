@@ -60,7 +60,7 @@ client.on("message", (message) => {
     const args = message.content.slice(config.prefix).trim().split(/ +/g);
     const command = args.shift().toLowerCase();
     let song = args[1]
-    play(song)
+    client.player.play(song)
   }
 });
 //
