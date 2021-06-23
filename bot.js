@@ -24,7 +24,7 @@ client.on("message", (message) => {
 client.on("message", (message) => {
   if (message.content.startsWith(config.prefix + "decide")) {
     const args = message.content.slice(config.prefix).trim().split(/ +/g);
-    const command = args.shift().toLowerCase();
+    const command = args.shift().toLowerCase();~
     let first = args[0]
     let second = args[2]
     desc = randomIntInc(1,2)
@@ -73,15 +73,7 @@ client.on('message', async (message) => {
             console.log(`Started playing ${song.name}`);
         return;
     }
-    
-    // OR with the Options Object
-    if(command === 'play'){
-        let song = await client.player.play(message, {
-            search: args.join(' '),
-            requestedBy: message.author.tag
-        });
-
-        // If there were no errors the Player#songAdd event will fire and the song will not be null.
+           // If there were no errors the Player#songAdd event will fire and the song will not be null.
         if(song)
             console.log(`Started playing ${song.name}`);
         return;
