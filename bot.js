@@ -1,7 +1,6 @@
 const Discord = require("discord.js");
 const client = new Discord.Client();
 const config = require("./config.json");
-const music = require('discord-music-system');
 var giphy = require('giphy-api')();
 
 function coinFlip() {
