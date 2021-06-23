@@ -1,5 +1,5 @@
 const Discord = require("discord.js");
-const client = new Discord({ ws: { intents: ['GUILDS', 'GUILD_MESSAGES'] } });
+const client = Discord({ ws: { intents: ['GUILDS', 'GUILD_MESSAGES'] } });
 const config = require("./config.json");
 var giphy = require('giphy-api')();
 const { Player } = require("discord-music-player");
