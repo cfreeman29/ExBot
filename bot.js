@@ -2,7 +2,9 @@ const Discord = require("discord.js");
 const client = new Discord.Client();
 const config = require("./config.json");
 var giphy = require('giphy-api')();
+const { Player } = require("discord-music-player");
 
+//CoinFlip
 function coinFlip() {
     return (Math.floor(Math.random() * 2) == 0) ? ' HEADS' : ' TAILS';
 }
@@ -10,45 +12,15 @@ function randomIntInc (low, high) {
   return Math.floor(Math.random() * (high - low + 1) + low);
 }
 
-client.on('ready', () => {
-  console.log(`Logged in as ${client.user.tag}!`);
-});
-
-client.on("message", (message) => {
-  if (message.content.startsWith(config.prefix + "ping")) {
-    message.channel.send("pong");
-  }
-});
-
-client.on('message', message => {
-  if (message.content.startsWith(config.prefix + "summon")) {
-    const voiceChannel = message.member.voiceChannel;
-
-    voiceChannel.join()
-    .then(connection => console.log('Connected!'))
-    .catch(console.error);
-  }
-});
-
-client.on('message', message => {
-  if (message.content.startsWith(config.prefix + "dismiss")) {
-    const voiceChannel = message.member.voiceChannel;
-    voiceChannel.leave()
-  }
-});
-
-client.on("message", (message) => {
-  if (message.content.startsWith("<@354025589851815950>")) {
-    message.channel.send(message.author + ", Unknown Command, please check !help.");
-  }
-});
 
 client.on("message", (message) => {
   if (message.content.startsWith(config.prefix + "coinflip")) {
     message.channel.send(message.author + ", The coin landed on" + coinFlip() + ".");
   }
 });
+//
 
+//Decider//
 client.on("message", (message) => {
   if (message.content.startsWith(config.prefix + "decide")) {
     const args = message.content.slice(config.prefix).trim().split(/ +/g);
@@ -65,8 +37,79 @@ client.on("message", (message) => {
     message.channel.send("I have decided on " + choice + ".");
   }
 });
+//
 
-//ROCK PAPER SCISSORS
+//Music//
+const player = new Player(client, {
+  leaveOnEmpty: true, // This options are optional.
+});
+// You can define the Player as *client.player* to easly access it.
+client.player = player;
+
+new Player(client, {
+  leaveOnEnd: false,
+  leaveOnStop: false,
+  leaveOnEmpty: true,
+  timeout: 0,
+  volume: 150,
+  quality: 'high',
+});
+
+client.on("message", (message) => {
+  if (message.content.startsWith(config.prefix + "play")) {
+    const args = message.content.slice(config.prefix).trim().split(/ +/g);
+    const command = args.shift().toLowerCase();
+    let song = args[1]
+    play(song)
+  }
+});
+//
+
+
+//Ready Up
+client.on('ready', () => {
+  console.log(`Logged in as ${client.user.tag}!`);
+});
+//
+
+//Ping Pong Test
+client.on("message", (message) => {
+  if (message.content.startsWith(config.prefix + "ping")) {
+    message.channel.send("pong");
+  }
+});
+//
+
+//Summon to Channel///
+client.on('message', message => {
+  if (message.content.startsWith(config.prefix + "summon")) {
+    const voiceChannel = message.member.voiceChannel;
+
+    voiceChannel.join()
+    .then(connection => console.log('Connected!'))
+    .catch(console.error);
+  }
+});
+//
+
+//Dimiss From Channel//
+client.on('message', message => {
+  if (message.content.startsWith(config.prefix + "dismiss")) {
+    const voiceChannel = message.member.voiceChannel;
+    voiceChannel.leave()
+  }
+});
+//
+
+//Error Handling//
+client.on("message", (message) => {
+  if (message.content.startsWith("<@354025589851815950>")) {
+    message.channel.send(message.author + ", Unknown Command, please check !help.");
+  }
+});
+//
+
+//ROCK PAPER SCISSORS//
 var res=0;
 var result="";
 
@@ -125,12 +168,16 @@ client.on("message", (message) => {
       }
     }}
 });
+//
 
-
+//Help//
 client.on("message", (message) => {
   if (message.content.startsWith(config.prefix + "help")) {
     message.channel.send("Available Commands:\n !ping : sends a pong response when online.\n !coinflip : flips a coin and returns heads or tails.\n !rps (rock,paper,sissors) : Plays a game!\n !decide (option,option) : Let Exbot decide on what to choose!\n !summon,!play,!dismiss : Summon Exbot to voice, play a song, then leave.\n");
   }
 });
+//
 
+//Token
 client.login(config.token);
+//
