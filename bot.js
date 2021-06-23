@@ -139,7 +139,7 @@ client.on("message", (message) => {
 
 client.on("message", (message) => {
   if (message.content.startsWith(config.prefix + "help")) {
-    message.channel.send("Available Commands:\n !ping : sends a pong response when online.\n !coinflip : flips a coin and returns heads or tails.\n !exbot\n !exbot\n !exbot\n");
+    message.channel.send("Available Commands:\n !ping : sends a pong response when online.\n !coinflip : flips a coin and returns heads or tails.\n !rps (rock,paper,sissors) : Plays a game!\n !decide (option,option) : Let Exbot decide on what to choose!\n !summon,!play,!dismiss : Summon Exbot to voice, play a song, then leave.\n");
   }
 });
 
