@@ -40,12 +40,6 @@ client.on("message", (message) => {
 //
 
 //Music//
-const player = new Player(client, {
-  leaveOnEmpty: true, // This options are optional.
-});
-// You can define the Player as *client.player* to easly access it.
-client.player = player;
-
 new Player(client, {
   leaveOnEnd: false,
   leaveOnStop: false,
@@ -54,6 +48,8 @@ new Player(client, {
   volume: 150,
   quality: 'high',
 });
+// You can define the Player as *client.player* to easly access it.
+client.player = player;
 
 client.on("message", (message) => {
   if (message.content.startsWith(config.prefix + "play")) {
